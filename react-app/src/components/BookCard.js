@@ -5,13 +5,10 @@ import {
   CardImg,
   CardText,
   CardBody,
-  Button,
-  FormGroup,
-  Label,
-  Input,
   CardTitle,
   CardSubtitle
 } from "reactstrap";
+import CommentForm from "./CommentForm";
 
 /**
  * Learn more about reactstrap Card component
@@ -26,6 +23,7 @@ class BookCard extends Component {
       author_name,
       publication_date
     } = this.props.book;
+
     return (
       <Col xs="4">
         <Card>
@@ -42,14 +40,12 @@ class BookCard extends Component {
             </CardText>
           </CardBody>
         </Card>
-        <FormGroup>
-          <Label for="commentText">Add comment here</Label>
-          <Input type="textarea" name="text" id="commentText" />
-        </FormGroup>
-        <Button color="success">Add Comment</Button>
+        <CommentForm />
       </Col>
     );
   }
 }
 
 export default BookCard;
+
+// <FormGroup onSubmit={submitCommentForm}>
