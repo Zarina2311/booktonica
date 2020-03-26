@@ -47,5 +47,3 @@ class BookCard extends Component {
 }
 
 export default BookCard;
-
-// <FormGroup onSubmit={submitCommentForm}>
