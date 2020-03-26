@@ -5,6 +5,10 @@ import {
   CardImg,
   CardText,
   CardBody,
+  Button,
+  FormGroup,
+  Label,
+  Input,
   CardTitle,
   CardSubtitle
 } from "reactstrap";
@@ -38,6 +42,11 @@ class BookCard extends Component {
             </CardText>
           </CardBody>
         </Card>
+        <FormGroup>
+          <Label for="commentText">Add comment here</Label>
+          <Input type="textarea" name="text" id="commentText" />
+        </FormGroup>
+        <Button color="success">Add Comment</Button>
       </Col>
     );
   }
