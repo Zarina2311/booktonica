@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { addComment } from "../helpers/booktonica-api-fetcher";
 import {
   Col,
   Card,
@@ -6,9 +7,14 @@ import {
   CardText,
   CardBody,
   CardTitle,
-  CardSubtitle
+  CardSubtitle,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  CardFooter,
+  Input
 } from "reactstrap";
-import CommentForm from "./CommentForm";
 
 /**
  * Learn more about reactstrap Card component
@@ -17,12 +23,22 @@ import CommentForm from "./CommentForm";
 class BookCard extends Component {
   render() {
     const {
+      id,
       cover_image_url,
       summary,
       title,
       author_name,
       publication_date
     } = this.props.book;
+
+    const onSubmit = event => {
+      event.preventDefault();
+
+      addComment({
+        book_id: id,
+        comment: event.target.text.value
+      });
+    };
 
     return (
       <Col xs="4">
@@ -40,7 +56,21 @@ class BookCard extends Component {
             </CardText>
           </CardBody>
         </Card>
-        <CommentForm />
+        <Col>
+          <Form onSubmit={onSubmit}>
+            <FormGroup>
+              <Label for="commentText">Add comment here</Label>
+              <Input type="textarea" name="text" />
+            </FormGroup>
+            <Button color="info">Add Comment</Button>
+            {this.props.comments.map(comment => (
+              <CardFooter className="text-muted" key={comment.id}>
+                {comment.comment}
+              </CardFooter>
+            ))}
+          </Form>
+        </Col>
+        <br />
       </Col>
     );
   }
