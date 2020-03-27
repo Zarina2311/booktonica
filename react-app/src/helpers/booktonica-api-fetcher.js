@@ -14,3 +14,36 @@ export function getAllBooks() {
     }
   });
 }
+
+export function addComment(comment) {
+  return fetch("/comments", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(comment)
+  }).then(res => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      throw new Error("Unexpected non-OK HTTP status: POST /comments");
+    }
+  });
+}
+
+export function getComments() {
+  return fetch("/comments", {
+    headers: {
+      Accept: "application/json"
+    }
+  }).then(resp => {
+    if (resp.ok) {
+      return resp.json();
+    } else {
+      throw new Error(
+        ` fetch('/comments') failed: Express server responded with HTTP ${resp.status} ${resp.statusText}.`
+      );
+    }
+  });
+}
