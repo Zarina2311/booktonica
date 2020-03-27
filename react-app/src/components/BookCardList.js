@@ -7,7 +7,13 @@ class BookCardList extends Component {
     return (
       <Row>
         {this.props.books.map(book => (
-          <BookCard key={book.id} book={book} />
+          <BookCard
+            key={book.id}
+            book={book}
+            comments={this.props.comments.filter(
+              comment => comment.book_id === book.id
+            )}
+          />
         ))}
       </Row>
     );
