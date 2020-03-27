@@ -40,6 +40,21 @@ api.get('/books', (_unused, res) =>
   db.getAllBooks().then(books => res.send(books))
 );
 
+// POST comments
+api.post('/comments', (req, res) => {
+  db.addComment(req.body)
+    .then(comment => res.send(comment))
+    .catch(err => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+});
+
+// GET comments
+api.get('/comments', (_unused, res) =>
+  db.getComments().then(comments => res.send(comments))
+);
+
 // sanityCheck will make sure the DB is working before listening
 db.sanityCheck().then(() => {
   api.listen(PORT, () => {
