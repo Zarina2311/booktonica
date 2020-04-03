@@ -37,7 +37,7 @@ class BookCard extends Component {
       addComment({
         book_id: id,
         comment: event.target.text.value
-      });
+      }).then(() => this.props.loadComments());
     };
 
     return (

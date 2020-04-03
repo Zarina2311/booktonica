@@ -14,13 +14,21 @@ class App extends Component {
 
   componentDidMount() {
     getAllBooks().then(books => this.setState({ books: books }));
+    this.loadComments();
+  }
+
+  loadComments() {
     getComments().then(comments => this.setState({ comments: comments }));
   }
 
   render() {
     return (
       <div className="App">
-        <BookCardList books={this.state.books} comments={this.state.comments} />
+        <BookCardList
+          books={this.state.books}
+          comments={this.state.comments}
+          loadComments={this.loadComments.bind(this)}
+        />
       </div>
     );
   }

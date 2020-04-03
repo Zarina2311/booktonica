@@ -10,6 +10,7 @@ class BookCardList extends Component {
           <BookCard
             key={book.id}
             book={book}
+            loadComments={this.props.loadComments}
             comments={this.props.comments.filter(
               comment => comment.book_id === book.id
             )}

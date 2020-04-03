@@ -1,4 +1,4 @@
-## Final App Assessment
+## Final Full-Stack App for Techtonica's program
 
 ### Setup Instructions
 
