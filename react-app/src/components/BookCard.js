@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { addComment } from "../helpers/booktonica-api-fetcher";
+import CommentForm from "./CommentForm";
 import {
   Col,
   Card,
@@ -7,20 +7,19 @@ import {
   CardText,
   CardBody,
   CardTitle,
-  CardSubtitle,
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  CardFooter,
-  Input
+  CardSubtitle
 } from "reactstrap";
+import CommentList from "./CommentList";
 
 /**
  * Learn more about reactstrap Card component
  * https://reactstrap.github.io/components/card/
  */
 class BookCard extends Component {
+  afterSubmit() {
+    this.props.loadComments();
+  }
+
   render() {
     const {
       id,
@@ -31,17 +30,8 @@ class BookCard extends Component {
       publication_date
     } = this.props.book;
 
-    const onSubmit = event => {
-      event.preventDefault();
-
-      addComment({
-        book_id: id,
-        comment: event.target.text.value
-      }).then(() => this.props.loadComments());
-    };
-
     return (
-      <Col xs="4">
+      <Col xs="3">
         <Card>
           <CardImg
             className="bookCover"
@@ -53,24 +43,14 @@ class BookCard extends Component {
             <CardSubtitle>{author_name}</CardSubtitle>
             <CardText>
               <i>{publication_date}</i> - {summary}
+              <CommentForm
+                bookId={id}
+                afterSubmit={this.afterSubmit.bind(this)}
+              />
+              <CommentList comments={this.props.comments} />
             </CardText>
           </CardBody>
         </Card>
-        <Col>
-          <Form onSubmit={onSubmit}>
-            <FormGroup>
-              <Label for="commentText">Add comment here</Label>
-              <Input type="textarea" name="text" />
-            </FormGroup>
-            <Button color="info">Add Comment</Button>
-            {this.props.comments.map(comment => (
-              <CardFooter className="text-muted" key={comment.id}>
-                {comment.comment}
-              </CardFooter>
-            ))}
-          </Form>
-        </Col>
-        <br />
       </Col>
     );
   }
