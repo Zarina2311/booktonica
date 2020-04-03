@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.2
+-- Dumped from database version 12.1
 -- Dumped by pg_dump version 12.2
 
 SET statement_timeout = 0;
@@ -21,7 +21,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: authors; Type: TABLE; Schema: public; Owner: bill
+-- Name: authors; Type: TABLE; Schema: public; Owner: tpl1219_5
 --
 
 CREATE TABLE public.authors (
@@ -34,10 +34,10 @@ CREATE TABLE public.authors (
 );
 
 
-ALTER TABLE public.authors OWNER TO bill;
+ALTER TABLE public.authors OWNER TO tpl1219_5;
 
 --
--- Name: authors_id_seq; Type: SEQUENCE; Schema: public; Owner: bill
+-- Name: authors_id_seq; Type: SEQUENCE; Schema: public; Owner: tpl1219_5
 --
 
 CREATE SEQUENCE public.authors_id_seq
@@ -49,17 +49,17 @@ CREATE SEQUENCE public.authors_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.authors_id_seq OWNER TO bill;
+ALTER TABLE public.authors_id_seq OWNER TO tpl1219_5;
 
 --
--- Name: authors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bill
+-- Name: authors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tpl1219_5
 --
 
 ALTER SEQUENCE public.authors_id_seq OWNED BY public.authors.id;
 
 
 --
--- Name: books; Type: TABLE; Schema: public; Owner: bill
+-- Name: books; Type: TABLE; Schema: public; Owner: tpl1219_5
 --
 
 CREATE TABLE public.books (
@@ -73,10 +73,10 @@ CREATE TABLE public.books (
 );
 
 
-ALTER TABLE public.books OWNER TO bill;
+ALTER TABLE public.books OWNER TO tpl1219_5;
 
 --
--- Name: books_id_seq; Type: SEQUENCE; Schema: public; Owner: bill
+-- Name: books_id_seq; Type: SEQUENCE; Schema: public; Owner: tpl1219_5
 --
 
 CREATE SEQUENCE public.books_id_seq
@@ -88,31 +88,117 @@ CREATE SEQUENCE public.books_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.books_id_seq OWNER TO bill;
+ALTER TABLE public.books_id_seq OWNER TO tpl1219_5;
 
 --
--- Name: books_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bill
+-- Name: books_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tpl1219_5
 --
 
 ALTER SEQUENCE public.books_id_seq OWNED BY public.books.id;
 
 
 --
--- Name: authors id; Type: DEFAULT; Schema: public; Owner: bill
+-- Name: comments; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.comments (
+    id integer NOT NULL,
+    comment text,
+    creation timestamp without time zone DEFAULT now(),
+    user_id integer,
+    book_id integer
+);
+
+
+ALTER TABLE public.comments OWNER TO postgres;
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.comments_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.comments_id_seq OWNER TO postgres;
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    user_name text,
+    joined_on_date timestamp without time zone
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO postgres;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: authors id; Type: DEFAULT; Schema: public; Owner: tpl1219_5
 --
 
 ALTER TABLE ONLY public.authors ALTER COLUMN id SET DEFAULT nextval('public.authors_id_seq'::regclass);
 
 
 --
--- Name: books id; Type: DEFAULT; Schema: public; Owner: bill
+-- Name: books id; Type: DEFAULT; Schema: public; Owner: tpl1219_5
 --
 
 ALTER TABLE ONLY public.books ALTER COLUMN id SET DEFAULT nextval('public.books_id_seq'::regclass);
 
 
 --
--- Data for Name: authors; Type: TABLE DATA; Schema: public; Owner: bill
+-- Name: comments id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.comments_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Data for Name: authors; Type: TABLE DATA; Schema: public; Owner: tpl1219_5
 --
 
 COPY public.authors (id, name, date_of_death, homepage, headshot_url, date_of_birth) FROM stdin;
@@ -126,7 +212,7 @@ COPY public.authors (id, name, date_of_death, homepage, headshot_url, date_of_bi
 
 
 --
--- Data for Name: books; Type: TABLE DATA; Schema: public; Owner: bill
+-- Data for Name: books; Type: TABLE DATA; Schema: public; Owner: tpl1219_5
 --
 
 COPY public.books (id, title, publication_date, author_id, cover_image_url, summary, subtitle) FROM stdin;
@@ -143,21 +229,62 @@ COPY public.books (id, title, publication_date, author_id, cover_image_url, summ
 
 
 --
--- Name: authors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bill
+-- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.comments (id, comment, creation, user_id, book_id) FROM stdin;
+33	Curious to read it	2020-03-26 22:11:14.793224	1	3
+36	I've heard it's a funny book	2020-03-26 22:12:37.436743	1	4
+37	Hmm interesting name...	2020-03-26 22:13:02.043674	1	7
+38	Must be a funny book :)	2020-03-26 22:13:41.444125	1	5
+51	Interesting book	2020-04-02 18:23:04.176338	1	8
+52	I watched her interview	2020-04-02 18:23:42.845564	1	1
+53	I'm listening to this book currently	2020-04-02 18:23:56.132145	1	1
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (id, user_name, joined_on_date) FROM stdin;
+1	spring_11	2020-02-23 00:00:00
+4	winter_87	2020-01-16 00:00:00
+2	summer_23	2020-03-13 00:00:00
+3	fall_4	2020-02-19 00:00:00
+\.
+
+
+--
+-- Name: authors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tpl1219_5
 --
 
 SELECT pg_catalog.setval('public.authors_id_seq', 7, true);
 
 
 --
--- Name: books_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bill
+-- Name: books_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tpl1219_5
 --
 
 SELECT pg_catalog.setval('public.books_id_seq', 9, true);
 
 
 --
--- Name: authors authors_pkey; Type: CONSTRAINT; Schema: public; Owner: bill
+-- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.comments_id_seq', 54, true);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 4, true);
+
+
+--
+-- Name: authors authors_pkey; Type: CONSTRAINT; Schema: public; Owner: tpl1219_5
 --
 
 ALTER TABLE ONLY public.authors
@@ -165,7 +292,7 @@ ALTER TABLE ONLY public.authors
 
 
 --
--- Name: books books_pkey; Type: CONSTRAINT; Schema: public; Owner: bill
+-- Name: books books_pkey; Type: CONSTRAINT; Schema: public; Owner: tpl1219_5
 --
 
 ALTER TABLE ONLY public.books
@@ -173,11 +300,43 @@ ALTER TABLE ONLY public.books
 
 
 --
--- Name: books books_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bill
+-- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: books books_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tpl1219_5
 --
 
 ALTER TABLE ONLY public.books
     ADD CONSTRAINT books_author_id_fkey FOREIGN KEY (author_id) REFERENCES public.authors(id);
+
+
+--
+-- Name: comments comments_book_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT comments_book_id_fkey FOREIGN KEY (book_id) REFERENCES public.books(id);
+
+
+--
+-- Name: comments comments_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT comments_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
