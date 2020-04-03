@@ -237,7 +237,6 @@ COPY public.comments (id, comment, creation, user_id, book_id) FROM stdin;
 36	I've heard it's a funny book	2020-03-26 22:12:37.436743	1	4
 37	Hmm interesting name...	2020-03-26 22:13:02.043674	1	7
 38	Must be a funny book :)	2020-03-26 22:13:41.444125	1	5
-51	Interesting book	2020-04-02 18:23:04.176338	1	8
 52	I watched her interview	2020-04-02 18:23:42.845564	1	1
 53	I'm listening to this book currently	2020-04-02 18:23:56.132145	1	1
 \.
@@ -273,7 +272,7 @@ SELECT pg_catalog.setval('public.books_id_seq', 9, true);
 -- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.comments_id_seq', 54, true);
+SELECT pg_catalog.setval('public.comments_id_seq', 69, true);
 
 
 --
