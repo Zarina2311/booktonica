@@ -7,14 +7,10 @@ import {
   CardText,
   CardBody,
   CardTitle,
-  CardSubtitle
+  CardSubtitle,
 } from "reactstrap";
 import CommentList from "./CommentList";
 
-/**
- * Learn more about reactstrap Card component
- * https://reactstrap.github.io/components/card/
- */
 class BookCard extends Component {
   afterSubmit() {
     this.props.loadComments();
@@ -27,7 +23,7 @@ class BookCard extends Component {
       summary,
       title,
       author_name,
-      publication_date
+      publication_date,
     } = this.props.book;
 
     return (

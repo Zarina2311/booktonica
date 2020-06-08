@@ -1,4 +1,12 @@
-## Final Full-Stack App for Techtonica's program
+## Booktonica
+
+Full-stack web app displaying a list of books from [Techtonica's curriculum](https://github.com/Techtonica/final-full-stack-assessment-h1-2020).
+
+Special feature: users can leave comments under each book.
+
+The app is written using React.js, Reactstrap, Node.js, Express.js, PostgreSQL.
+
+![Booktonica Demo](/booktonica-demo.gif)
 
 ### Setup Instructions
 
@@ -10,3 +18,5 @@
 - `cd ../react-app`
 - `npm install`
 - `npm start`
+
+Once both servers are running (Express on port 3001 and React on 3000), open http://localhost:3000 to view the app in the browser.
