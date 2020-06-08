@@ -6,7 +6,7 @@ Special feature: users can leave comments under each book.
 
 The app is written using React.js, Reactstrap, Node.js, Express.js, PostgreSQL.
 
-![Booktonica Demo](/booktonica-demo.gif)
+![Booktonica Demo](https://github.com/Zarina2311/booktonica/raw/master/react-app/public/booktonica-demo.gif)
 
 ### Setup Instructions
 
